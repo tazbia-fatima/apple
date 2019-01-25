@@ -1,8 +1,24 @@
 package models;
 
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.persistence.*;
+
+@Entity
 public class Food {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty("Id")
+    private Integer Id;
+
+    @Basic
+    @JsonProperty("name")
     private String name;
+
+    @Basic
+    @JsonProperty("calories")
     private Integer calories;
 
     public Food() {
