@@ -80,39 +80,34 @@ public class FoodController extends Controller {
 //
 //        final Collection<Food> newFoodItems = foodDao.createFoods(foods);
 //
-//        final JsonNode result = Json.toJson(newFoodItems);
-//        return ok(result);
-        final JsonNode json = request().body().asJson();
-        final Food food = Json.fromJson(json, Food.class);
 
-        if (null == food.getName()) {
-            return badRequest("Missing title");
+        final JsonNode json = request().body().asJson();
+
+        if (!json.isArray()) {
+            return badRequest("please enter food items");
         }
 
+        for (JsonNode node : json) {
+            final Food food = Json.fromJson(node, Food.class);
+            foods.add(food);
+            //return ok("You are inside");
 
-        foods.add(food);
+        }
+        if (foods.isEmpty()) {
+            return badRequest();
+        }
 
         final Collection<Food> newFoodItems = foodDao.createFoods(foods);
-
-
         final JsonNode result = Json.toJson(newFoodItems);
-
-
-
-
         return ok(result);
-
-
-
 
     }
 
-
     @Transactional
-    public Result getFoodById(Integer Id) {
+    public Result getFoodByName(Integer Id) {
 
         if (null == Id) {
-            return badRequest("Id must be provided");
+            return badRequest("Name must be provided");
         }
         final Optional<Food> food = foodDao.read(Id);
         if(food.isPresent()) {
