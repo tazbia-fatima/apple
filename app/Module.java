@@ -3,7 +3,13 @@ import java.time.Clock;
 
 import dao.BookDao;
 import dao.BookDaoImpl;
-import dao.FakeBookDao;
+
+import dao.FoodDao;
+import dao.FoodDaoImpl;
+
+import dao.UserDao;
+import dao.UserDaoImpl;
+
 import services.ApplicationTimer;
 import services.AtomicCounter;
 import services.Counter;
@@ -31,6 +37,8 @@ public class Module extends AbstractModule {
         bind(Counter.class).to(AtomicCounter.class);
         bind(BookDao.class).to(BookDaoImpl.class);
         //        bind(BookDao.class).to(FakeBookDao.class);
+        bind(FoodDao.class).to(FoodDaoImpl.class);
+        bind(UserDao.class).to(UserDaoImpl.class);
     }
 
 }
