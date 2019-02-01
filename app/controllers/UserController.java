@@ -23,8 +23,24 @@ public class UserController extends Controller {
 
     @Inject
     public UserController(UserDao userDao){
+
         this.userDao = userDao;
     }
+
+//    @Transactional
+//    public Result registerUser() {
+//        final JsonNode json = request().body().asJson();
+//
+//        final User user = Json.fromJson(json, User.class);
+//
+//        LOGGER.debug("User name is  = " + user.getName());
+//        LOGGER.error("This is an error");
+//
+//        if(null == user.getName()){
+//            return forbidden("Please enter name");
+//
+//        }
+
 
     @Transactional
     public Result createUser()  {

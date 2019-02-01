@@ -1,14 +1,7 @@
 import com.google.inject.AbstractModule;
 import java.time.Clock;
 
-import dao.BookDao;
-import dao.BookDaoImpl;
-
-import dao.FoodDao;
-import dao.FoodDaoImpl;
-
-import dao.UserDao;
-import dao.UserDaoImpl;
+import dao.*;
 
 import services.ApplicationTimer;
 import services.AtomicCounter;
@@ -39,6 +32,7 @@ public class Module extends AbstractModule {
         //        bind(BookDao.class).to(FakeBookDao.class);
         bind(FoodDao.class).to(FoodDaoImpl.class);
         bind(UserDao.class).to(UserDaoImpl.class);
+        //bind(UserDao.class). to(FakeUserDao.class);
     }
 
 }

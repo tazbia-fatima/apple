@@ -3,7 +3,7 @@ package dao;
 
 import models.User;
 import play.db.jpa.JPAApi;
-import play.libs.F;
+
 
 import javax.inject.Inject;
 import javax.persistence.TypedQuery;

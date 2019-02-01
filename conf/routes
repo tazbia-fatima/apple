@@ -8,14 +8,22 @@ GET /hellos/:name                   controllers.HelloWorldController.hellos(name
 
 
 
-POST /books                         controllers.BooksController.createBook()
-GET /books/:Id                      controllers.BooksController.getBookById(Id : Integer)
-PUT /books/:Id                      controllers.BooksController.updateBookById(Id : Integer)
-DELETE /books/:Id                   controllers.BooksController.deleteBookById(Id : Integer)
-GET /books                          controllers.BooksController.getAllBooks()
+#POST /books                         controllers.BooksController.createBook()
+#GET /books/:Id                      controllers.BooksController.getBookById(Id : Integer)
+#PUT /books/:Id                      controllers.BooksController.updateBookById(Id : Integer)
+#DELETE /books/:Id                   controllers.BooksController.deleteBookById(Id : Integer)
+#GET /books                          controllers.BooksController.getAllBooks()
 
 
-GET /foods                          controllers.FoodController.getFood()
+GET /foods                          controllers.FoodController.getAllFood()
+POST /foods                         controllers.FoodController.createFoods()
+POST /food                          controllers.FoodController.createFood()
+DELETE /foods/:Id                   controllers.FoodController.deleteFoodById(Id : Integer)
+
+
+#GET /users                          controllers.UserController.getAllUsers()
+#POST /users                         controllers.UserController.createUsers()
+#POST /user                          controllers.UserController.createUser()
 
 
 # An example controller showing a sample home page

@@ -90,8 +90,6 @@ public class FoodDaoImpl implements FoodDao{
     @Override
     public Collection<Food> createFoods(Collection<Food> foodItems) {
 
-
-
         for(Food item: foodItems){
             jpaApi.em().persist(item);
         }

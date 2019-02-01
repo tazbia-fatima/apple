@@ -1,8 +1,6 @@
 package dao;
 
-import com.google.inject.Inject;
 import models.Food;
-import play.db.jpa.JPAApi;
 
 import java.util.Collection;
 
