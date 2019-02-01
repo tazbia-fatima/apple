@@ -1,27 +1,19 @@
 package controllers;
 
-import akka.stream.impl.fusing.Collect;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.mysql.cj.xdevapi.JsonArray;
-import dao.BookDao;
-import dao.BookDaoImpl;
 import com.google.inject.Inject;
 import dao.FoodDao;
-import models.Book;
 import models.Food;
 import play.Logger;
 import play.db.jpa.Transactional;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
-import scala.Array;
-import scala.util.parsing.json.JSONArray$;
-import scala.util.parsing.json.JSONObject;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.lang.String;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 
 public class FoodController extends Controller {
