@@ -4,21 +4,21 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.google.inject.Inject;
 import dao.UserDao;
 import models.User;
+import org.apache.commons.lang3.RandomStringUtils;
 import play.Logger;
 import play.db.jpa.Transactional;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 
 public class UserController extends Controller {
 
     private final static Logger.ALogger LOGGER = Logger.of(UserController.class);
+
     final UserDao userDao;
 
     @Inject
@@ -27,23 +27,10 @@ public class UserController extends Controller {
         this.userDao = userDao;
     }
 
-//    @Transactional
-//    public Result registerUser() {
-//        final JsonNode json = request().body().asJson();
-//
-//        final User user = Json.fromJson(json, User.class);
-//
-//        LOGGER.debug("User name is  = " + user.getName());
-//        LOGGER.error("This is an error");
-//
-//        if(null == user.getName()){
-//            return forbidden("Please enter name");
-//
-//        }
-
 
     @Transactional
-    public Result createUser()  {
+    public Result registerUser()  {
+
         final JsonNode json = request().body().asJson();
 
         final User user = Json.fromJson(json, User.class);
@@ -51,9 +38,16 @@ public class UserController extends Controller {
         LOGGER.debug("User name is  = " + user.getName());
         LOGGER.error("This is an error");
 
-        if (null == user.getName()) {
-            return badRequest("Title must be provided");
+        if (null == user.getName() || null == user.getPassword() || null == user.getEmail()) {
+            return badRequest("Missing Mandatory Parameters");
         }
+
+        if (userDao.read(user.getName()).isPresent()){
+            return badRequest("User Name already taken!");
+        }
+
+        user.setState(User.State.VERIFIED);
+        user.setRole(User.Role.USER);
 
         final User newUser = userDao.create(user);
 
@@ -64,65 +58,86 @@ public class UserController extends Controller {
     }
 
     @Transactional
-    public Result createUsers() {
-
-        List<User> users = new ArrayList<>();
+    public Result signInUser() {
 
         final JsonNode json = request().body().asJson();
+        final User user = Json.fromJson(json,User.class);
 
-        if (!json.isArray()) {
-            return badRequest("please enter users");
+        if(null == user.getName() || null == user.getPassword()){
+            return badRequest("Missing Mandatory Parameters");
         }
 
-        for (JsonNode node : json) {
-            final User user = Json.fromJson(node, User.class);
-            users.add(user);
+        final Optional<User> optionalExistingUser = userDao.read(user.getName());
 
-        }
-        if (users.isEmpty()) {
-            return badRequest();
+        if(!optionalExistingUser.isPresent()) {
+            return unauthorized("Wrong username!");
         }
 
-        final Collection<User> newUserMem = userDao.createUsers(users);
-        final JsonNode result = Json.toJson(newUserMem);
+        final User existingUser = optionalExistingUser.get();
+
+        if(!existingUser.getPassword().equals(user.getPassword())) {
+            return unauthorized("Wrong password!");
+        }
+
+        if(existingUser.getState() != User.State.VERIFIED) {
+            return unauthorized("Account not verified");
+        }
+
+        existingUser.setAccessToken(generateAccessToken());
+
+        userDao.update(existingUser);
+
+        final JsonNode result = Json.toJson(existingUser);
+
         return ok(result);
 
     }
 
-    @Transactional
-    public Result getUserByName(String name) {
+    private String generateAccessToken() {
 
-        if (null == name) {
-            return badRequest("Name must be provided");
-        }
-        final Optional<User> user = userDao.read(name);
-        if(user.isPresent()) {
-
-            final JsonNode result = Json.toJson(user.get());
-            return ok(result);
-        }
-        else {
-            return notFound();
-        }
-
+        String authToken = RandomStringUtils.randomAlphabetic(10);
+        return authToken;
     }
 
     @Transactional
-    public Result updateUserByName(String name) {
+    public Result signOutUser() {
 
-        if(null == name){
-            return badRequest("Name must be provided");
+        //TODO
+
+        return status(NOT_IMPLEMENTED);
+    }
+
+    @Transactional
+    public Result getCurrentUser() {
+
+        final Optional<String> authHeader = request().header("Authorization");
+
+        if (!authHeader.isPresent()) {
+            return unauthorized("Go and sign in");
         }
-        final JsonNode json = request().body().asJson();
-        final User newUser = Json.fromJson(json, User.class);
 
-        newUser.setName(name);
+        LOGGER.debug("Auth token = {}", authHeader.get());
 
-        final User updatedUser = userDao.update(newUser);
+        if (!authHeader.get().startsWith("Bearer ")) {
+            return unauthorized("Invalid auth header format");
+        }
 
-        final JsonNode result = Json.toJson(updatedUser);
+        final String accessToken = authHeader.get().substring(7);
+        LOGGER.debug("accessToken {}", accessToken);
+        if (accessToken.isEmpty()) {
+            return unauthorized("Invalid auth header format");
+        }
 
+        final User user = userDao.findUserByAuthToken(accessToken);
+        if (null == user) {
+            return unauthorized("User not found");
+        }
 
+        if (user.getRole() != User.Role.ADMIN) {
+            return forbidden();
+        }
+
+        final JsonNode result = Json.toJson(user);
 
         return ok(result);
     }
