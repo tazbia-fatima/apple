@@ -11,9 +11,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
 
     final JPAApi jpaApi;
+
 
     @Inject
     public UserDaoImpl(JPAApi jpaApi) {
@@ -23,7 +24,7 @@ public class UserDaoImpl implements UserDao{
     public User create(User user){
 
         if(null == user) {
-            throw new IllegalArgumentException("Food must be provided");
+            throw new IllegalArgumentException("User must be provided");
         }
 
         jpaApi.em().persist(user);
@@ -33,7 +34,7 @@ public class UserDaoImpl implements UserDao{
     public Optional<User> read(String name) {
 
         if(null == name){
-            throw new IllegalArgumentException("Id must be provided");
+            throw new IllegalArgumentException("Name must be provided");
         }
 
         final User user = jpaApi.em().find(User.class, name);
@@ -44,11 +45,11 @@ public class UserDaoImpl implements UserDao{
     public User update(User user) {
 
         if(null == user) {
-            throw new IllegalArgumentException("Username must be provided");
+            throw new IllegalArgumentException("Missing Mandatory Parameters");
         }
 
         if(null == user.getName()){
-            throw new IllegalArgumentException("User Id must be provided");
+            throw new IllegalArgumentException("User name must be provided");
         }
 
         final User existingUser = jpaApi.em().find(User.class, user.getName());
@@ -66,7 +67,7 @@ public class UserDaoImpl implements UserDao{
     public User delete(String name) {
 
         if(null == name) {
-            throw new IllegalArgumentException("User Id must be provided");
+            throw new IllegalArgumentException("User name must be provided");
         }
 
         final User existingUser = jpaApi.em().find(User.class, name);
@@ -87,14 +88,9 @@ public class UserDaoImpl implements UserDao{
         return users;
     }
 
-
     @Override
-    public Collection<User> createUsers(Collection<User> userList) {
-
-        for(User item: userList){
-            jpaApi.em().persist(item);
-        }
-
-        return userList;
+    public User findUserByAuthToken(String authToken) {
+        TypedQuery<User> query = jpaApi.em().createQuery("SELECT u from User u WHERE accessToken = authToken ", User.class);
+        return null;
     }
 }
