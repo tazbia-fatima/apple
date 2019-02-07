@@ -57,7 +57,7 @@ public class UserDaoImpl implements UserDao {
             return null;
         }
         existingUser.setEmail(user.getEmail());
-        existingUser.setPassword(user.getPassword());
+        existingUser.setPasswordHash(user.getPasswordHash());
 
         jpaApi.em().persist(existingUser);
 
@@ -90,7 +90,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findUserByAuthToken(String authToken) {
-        TypedQuery<User> query = jpaApi.em().createQuery("SELECT u from User u WHERE accessToken = authToken ", User.class);
-        return null;
+        TypedQuery<User> query = jpaApi.em().createQuery("SELECT u from User u WHERE accessToken = 'ABC123'", User.class);
+        User users = query.getSingleResult();
+        return users;
     }
 }
