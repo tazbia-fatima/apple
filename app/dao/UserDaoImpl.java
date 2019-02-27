@@ -1,7 +1,10 @@
 package dao;
 
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+import controllers.FoodController;
 import models.User;
+import play.Logger;
 import play.db.jpa.JPAApi;
 
 
@@ -12,6 +15,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
+
+    private final static Logger.ALogger LOGGER = Logger.of(UserDaoImpl.class);
 
     final JPAApi jpaApi;
 
@@ -90,13 +95,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findUserByAuthToken(String authToken) {
-<<<<<<< HEAD
-        TypedQuery<User> query = jpaApi.em().createQuery("SELECT u from User u WHERE accessToken = 'ABC123'", User.class);
-        User users = query.getSingleResult();
-        return users;
-=======
-        TypedQuery<User> query = jpaApi.em().createQuery("SELECT u from User u WHERE accessToken = authToken ", User.class);
-        return null;
->>>>>>> 0511057228a9fb6077501750f6762884c4fbeea0
+
+        String queryString = "SELECT u from User u WHERE accessToken = '" + authToken + "'";
+        LOGGER.info("query string {}", queryString);
+
+        TypedQuery<User> query = jpaApi.em().createQuery(queryString, User.class);
+        List<User> users = query.getResultList();
+        return users.isEmpty() ? null : users.get(0);
     }
 }
