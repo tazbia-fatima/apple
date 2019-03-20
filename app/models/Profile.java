@@ -7,19 +7,11 @@ import javax.persistence.*;
 @Entity
 public class Profile {
 
-//    public enum  Gender{
-//        MALE,
-//        FEMALE,
-//        OTHER
-//    }
-
-    public Integer getId() {
-        return Id;
+    public enum  Gender{
+        MALE,
+        FEMALE,
     }
 
-    public void setId(Integer id) {
-        Id = id;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,9 +35,14 @@ public class Profile {
     @JsonProperty("weight")
     private Integer weight;
 
-//    @Basic
-//    public Gender gender;
 
+    @Basic
+    public Gender gender;
+
+
+    @Basic
+    @JsonProperty("goalPlan")
+    private Float goalPlan;
 
 
     public Profile() {
@@ -58,19 +55,23 @@ public class Profile {
     }
 
 
-    public User getUser() {
-        return user;
+    public String getUser() {
+
+        return user.getName();
     }
 
     public void setUser(User user) {
+
         this.user = user;
     }
 
     public Integer getAge() {
+
         return age;
     }
 
     public void setAge(Integer age) {
+
         this.age = age;
     }
 
@@ -79,24 +80,44 @@ public class Profile {
     }
 
     public void setHeight(Integer height) {
+
         this.height = height;
     }
 
     public Integer getWeight() {
+
         return weight;
     }
 
     public void setWeight(Integer weight) {
+
         this.weight = weight;
     }
 
-//    public Gender getGender() {
-//        return gender;
-//    }
-//
-//    public void setGender(Gender gender) {
-//        this.gender = gender;
-//    }
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer id) {
+        Id = id;
+    }
+
+
+    public Float getGoalPlan() {
+        return goalPlan;
+    }
+
+    public void setGoalPlan(Float goalPlan) {
+        this.goalPlan = goalPlan;
+    }
 
 
 }

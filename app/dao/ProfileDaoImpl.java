@@ -6,7 +6,9 @@ import play.Logger;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;
+import javax.persistence.TypedQuery;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public class ProfileDaoImpl implements ProfileDao {
@@ -24,7 +26,7 @@ public class ProfileDaoImpl implements ProfileDao {
     @Override
     public Profile create(Profile profile) {
         if (null == profile) {
-            throw new IllegalArgumentException("Intake must be provided");
+            throw new IllegalArgumentException("Details must be provided");
         }
 
         jpaApi.em().persist(profile);
@@ -37,13 +39,27 @@ public class ProfileDaoImpl implements ProfileDao {
     }
 
     @Override
+    public Profile searchByUserName(String username) {
+
+        if(null == username){
+            throw new IllegalArgumentException("Name must be provided");
+        }
+
+        String queryString = "SELECT p from Profile p where user_name = '" + username + "'";
+        TypedQuery<Profile> query = jpaApi.em().createQuery(queryString, Profile.class);
+
+        List<Profile> profile = query.getResultList();
+        return profile.isEmpty() ? null : profile.get(0);
+    }
+
+    @Override
     public Profile update(Profile profile) {
         if(null == profile){
-            throw new IllegalArgumentException("Food must be provided");
+            throw new IllegalArgumentException("Details must be provided");
         }
 
         if(null == profile.getId()){
-            throw new IllegalArgumentException("Food Id must be provided");
+            throw new IllegalArgumentException("Id must be provided");
         }
 
         final Profile existingProfile = jpaApi.em().find(Profile.class, profile.getId());
@@ -54,6 +70,7 @@ public class ProfileDaoImpl implements ProfileDao {
 
         existingProfile.setHeight(profile.getHeight());
         existingProfile.setWeight(profile.getWeight());
+        existingProfile.setGoalPlan(profile.getGoalPlan());
 
         jpaApi.em().persist(existingProfile);
 

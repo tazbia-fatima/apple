@@ -15,13 +15,24 @@
 #GET /books                          controllers.BooksController.getAllBooks()
 
 
+
+POST /foodIntake                     controllers.FoodIntakeController.createFoodIntake()
+
+
+POST /profile                             controllers.ProfileController.createProfile()
+#PUT /profile                     controllers.ProfileController.updateProfileByAge()
+#PUT /profile/height                 controllers.ProfileController.updateProfileByHeight(Id : Integer,height : Integer)
+#PUT /profile/weight                 controllers.ProfileController.updateProfileByWeight(Id : Integer,weight : Integer)
+#PUT /profile/:Id/:goalPlan               controllers.ProfileController.updateGoalPlan(Id : Integer,goalPlan : Float)
+GET /profile/me                           controllers.ProfileController.getCurrentProfile()
+
+
 GET /foods                          controllers.FoodController.getAllFood()
 GET /foods/:Id                      controllers.FoodController.getFoodById(Id : Integer)
 POST /foods                         controllers.FoodController.createFoods()
 POST /food                          controllers.FoodController.createFood()
 PUT /foods/:name                    controllers.FoodController.updateFoodByName(name : String)
 DELETE /foods/:Id                   controllers.FoodController.deleteFoodById(Id : Integer)
-
 
 
 GET /users                          controllers.UserController.getAllUsers()

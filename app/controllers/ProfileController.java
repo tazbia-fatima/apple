@@ -14,6 +14,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 
+
 public class ProfileController extends Controller {
 
     private final static Logger.ALogger LOGGER = Logger.of(ProfileController.class);
@@ -51,62 +52,27 @@ public class ProfileController extends Controller {
 
     }
 
-    @Transactional
-    public Result updateProfileByAge(Integer age) {
-
-        if(null == age){
-            return badRequest("Id must be provided");
-        }
-        final JsonNode json = request().body().asJson();
-        final Profile newProfile = Json.fromJson(json, Profile.class);
-
-        newProfile.setAge(age);
-
-        final Profile updatedProfile = profileDao.update(newProfile);
-
-        final JsonNode result = Json.toJson(updatedProfile);
-
-
-        return ok(result);
-    }
-
 
     @Transactional
-    public Result updateProfileByHeight(Integer height) {
+    @Authenticator
+    public Result getCurrentProfile() {
 
-        if(null == height){
-            return badRequest("Height must be provided");
+        final User user = (User) ctx().args.get("user");
+
+        if(null == user.getAccessToken()){
+            return unauthorized("Account not verified");
         }
-        final JsonNode json = request().body().asJson();
-        final Profile newProfile = Json.fromJson(json, Profile.class);
 
-        newProfile.setAge(height);
+        final String username = user.getName();
 
-        final Profile updatedProfile= profileDao.update(newProfile);
+        LOGGER.debug("username :{}",username);
 
-        final JsonNode result = Json.toJson(updatedProfile);
+        final Profile currentProfile = profileDao.searchByUserName(username);
+
+        final JsonNode result = Json.toJson(currentProfile);
 
         return ok(result);
+
     }
-
-    @Transactional
-    public Result updateProfileByWeight(Integer weight) {
-
-        if(null == weight){
-            return badRequest("Age must be provided");
-        }
-        final JsonNode json = request().body().asJson();
-        final Profile newProfile = Json.fromJson(json, Profile.class);
-
-        newProfile.setAge(weight);
-
-        final Profile updatedProfile= profileDao.update(newProfile);
-
-        final JsonNode result = Json.toJson(updatedProfile);
-
-        return ok(result);
-    }
-
-
 
 }
