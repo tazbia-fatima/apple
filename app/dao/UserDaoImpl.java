@@ -1,8 +1,5 @@
 package dao;
 
-
-import ch.qos.logback.core.net.SyslogOutputStream;
-import controllers.FoodController;
 import models.User;
 import play.Logger;
 import play.db.jpa.JPAApi;

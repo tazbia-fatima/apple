@@ -43,7 +43,6 @@ public class UserController extends Controller {
         final User user = Json.fromJson(json, User.class);
 
         LOGGER.debug("User name is  = " + user.getName());
-        LOGGER.error("This is an error");
 
         if (null == user.getName()  || null == user.getEmail()) {
             return badRequest("Missing Mandatory Parameters");
@@ -81,7 +80,6 @@ public class UserController extends Controller {
 
     private String generateSalt() {
 
-        //return "ABC";
 
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         StringBuilder salt = new StringBuilder();
@@ -160,7 +158,7 @@ public class UserController extends Controller {
         return ok(result);
 
     }
-    
+
 
     private String generateAccessToken() {
 

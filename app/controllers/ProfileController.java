@@ -23,11 +23,13 @@ public class ProfileController extends Controller {
     private  UserDao userDao;
 
     private  ProfileDao profileDao;
+    private Profile profile;
 
     @Inject
-    public ProfileController(UserDao userDao, ProfileDao profileDao) {
+    public ProfileController(UserDao userDao, ProfileDao profileDao,Profile profile) {
         this.userDao = userDao;
         this.profileDao = profileDao;
+        this.profile = profile;
     }
 
     @Transactional
@@ -52,6 +54,24 @@ public class ProfileController extends Controller {
 
     }
 
+
+    @Authenticator
+    @Transactional
+    public Result updateProfile() {
+
+        final User user = (User) ctx().args.get("user");
+
+        final JsonNode json = request().body().asJson();
+        final Profile newProfile = Json.fromJson(json, Profile.class);
+        newProfile.setUser(user);
+        final Profile p = profileDao.update(newProfile);
+
+        final JsonNode result = Json.toJson(p);
+
+        return ok(result);
+
+
+    }
 
     @Transactional
     @Authenticator

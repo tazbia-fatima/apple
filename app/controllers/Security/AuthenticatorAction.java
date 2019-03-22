@@ -31,7 +31,9 @@ public class AuthenticatorAction extends Action.Simple {
     public CompletionStage<Result> call(Http.Context ctx) {
 
         final Optional<String> authHeader = ctx.request().header("Authorization");
-        System.out.println("XXX"+ authHeader);
+
+        LOGGER.debug("Access token {}", authHeader);
+
         if (!authHeader.isPresent()) {
             return CompletableFuture.completedFuture(unauthorized("Go and sign in"));
         }
@@ -43,7 +45,7 @@ public class AuthenticatorAction extends Action.Simple {
         }
 
         final String accessToken = authHeader.get().substring(7);
-        LOGGER.debug("accessToken {}", accessToken);
+        //LOGGER.debug("accessToken {}", accessToken);
         if (accessToken.isEmpty()) {
             return CompletableFuture.completedFuture(unauthorized("Invalid auth header format"));
         }

@@ -20,10 +20,7 @@ POST /foodIntake                     controllers.FoodIntakeController.createFood
 
 
 POST /profile                             controllers.ProfileController.createProfile()
-#PUT /profile                     controllers.ProfileController.updateProfileByAge()
-#PUT /profile/height                 controllers.ProfileController.updateProfileByHeight(Id : Integer,height : Integer)
-#PUT /profile/weight                 controllers.ProfileController.updateProfileByWeight(Id : Integer,weight : Integer)
-#PUT /profile/:Id/:goalPlan               controllers.ProfileController.updateGoalPlan(Id : Integer,goalPlan : Float)
+PUT /profile/me                           controllers.ProfileController.updateProfile()
 GET /profile/me                           controllers.ProfileController.getCurrentProfile()
 
 

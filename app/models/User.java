@@ -11,8 +11,6 @@ import javax.persistence.Id;
 @Entity
 public class User {
 
-
-
     public enum  Role {
         ADMIN,
         USER
@@ -31,7 +29,6 @@ public class User {
     @Basic
     @JsonProperty("email")
     private String email;
-
 
     @Basic
     @JsonProperty("token")
@@ -56,21 +53,13 @@ public class User {
    //Important for json serialization
     }
 
-<<<<<<< HEAD
     public User(String name,String passwordHash,String salt,Integer hashIterations,String email,Role role,State state,String accessToken) {
 
-=======
-    public User(String name,String email,String password,Role role,State state,String accessToken) {
->>>>>>> 0511057228a9fb6077501750f6762884c4fbeea0
         this.name = name;
         this.passwordHash = passwordHash;
         this.salt = salt;
         this.hashIterations = hashIterations;
         this.email = email;
-<<<<<<< HEAD
-=======
-        this.password = password;
->>>>>>> 0511057228a9fb6077501750f6762884c4fbeea0
         this.role = role;
         this.state = state;
         this.accessToken = accessToken;
@@ -78,11 +67,6 @@ public class User {
     }
 
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 0511057228a9fb6077501750f6762884c4fbeea0
     public String getName() {
 
         return name;
@@ -128,7 +112,6 @@ public class User {
         this.email = email;
     }
 
-<<<<<<< HEAD
     public Role getRole() {
 
         return role;
@@ -156,40 +139,6 @@ public class User {
 
     public void setAccessToken(String accessToken){
 
-=======
-    public String getPassword() {
-
-        return password;
-    }
-
-    public void setPassword(String password){
-
-        this.password = password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-
-    }
-
-    public State getState() {
-        return state;
-    }
-
-    public void setState(State state) {
-        this.state = state;
-    }
-
-    public String getAccessToken(){
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken){
->>>>>>> 0511057228a9fb6077501750f6762884c4fbeea0
         this.accessToken = accessToken;
     }
 

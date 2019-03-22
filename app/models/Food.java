@@ -1,6 +1,5 @@
 package models;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -21,18 +20,14 @@ public class Food {
     @JsonProperty("calories")
     private Integer calories;
 
-    @Basic
-    @JsonProperty("quantity")
-    private Integer quantity;
-
 
     public Food() {
     }
 
-    public Food(String name, Integer calories,Integer quantity) {
+    public Food(String name, Integer calories) {
         this.name = name;
         this.calories = calories;
-        this.quantity = quantity;
+
     }
 
     public String getName() {
@@ -55,11 +50,5 @@ public class Food {
         this.calories = calories;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
+    //Removed quantity
 }

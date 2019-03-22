@@ -33,6 +33,9 @@ public class Module extends AbstractModule {
         bind(FoodDao.class).to(FoodDaoImpl.class);
         bind(UserDao.class).to(UserDaoImpl.class);
         //bind(UserDao.class). to(FakeUserDao.class);
+        bind(FoodIntakeDao.class).to(FoodIntakeDaoImpl.class);
+
+        bind(ProfileDao.class).to(ProfileDaoImpl.class);
     }
 
 }

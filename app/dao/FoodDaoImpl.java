@@ -3,7 +3,6 @@ package dao;
 
 import models.Food;
 import play.db.jpa.JPAApi;
-import play.libs.F;
 
 import javax.inject.Inject;
 import javax.persistence.TypedQuery;
@@ -48,7 +47,7 @@ public class FoodDaoImpl implements FoodDao{
         }
 
         if(null == food.getName()){
-            throw new IllegalArgumentException("Food Id must be provided");
+            throw new IllegalArgumentException("Food Name must be provided");
         }
 
         final Food existingFood = jpaApi.em().find(Food.class, food.getName());

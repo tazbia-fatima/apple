@@ -26,8 +26,6 @@ public class FoodController extends Controller {
         this.foodDao = foodDao;
     }
 
-    //    int index = 0;
-//    final Map<Integer , Book> books = new HashMap<>();
     @Transactional
     public Result createFood()  {
         final JsonNode json = request().body().asJson();
@@ -54,24 +52,6 @@ public class FoodController extends Controller {
 
         List<Food> foods = new ArrayList<>();
 
-        // Adding new elements to the ArrayList
-//        foods.add(new Food("Pecan",795));
-//        foods.add(new Food("Grapes",67));
-//        foods.add(new Food("Walnuts", 654));
-//        foods.add(new Food("Almonds",575));
-//        foods.add(new Food("Hazelnuts", 628));
-//        foods.add(new Food("Sunflower Seeds", 573));
-//        foods.add(new Food("Cranberry Beans", 335));
-//        foods.add(new Food("Avocado", 160));
-//        foods.add(new Food("Banana", 89));
-//        foods.add(new Food("Sweet Potato", 86));
-//        foods.add(new Food("Apples", 52));
-//        foods.add(new Food("Papaya", 39));
-//        foods.add(new Food("Okra", 31));
-//        foods.add(new Food("Lemons", 28));
-//
-//        final Collection<Food> newFoodItems = foodDao.createFoods(foods);
-//
 
         final JsonNode json = request().body().asJson();
 
@@ -82,7 +62,6 @@ public class FoodController extends Controller {
         for (JsonNode node : json) {
             final Food food = Json.fromJson(node, Food.class);
             foods.add(food);
-            //return ok("You are inside");
 
         }
         if (foods.isEmpty()) {
@@ -96,7 +75,7 @@ public class FoodController extends Controller {
     }
 
     @Transactional
-    public Result getFoodByName(Integer Id) {
+    public Result getFoodById(Integer Id) {
 
         if (null == Id) {
             return badRequest("Name must be provided");
@@ -117,7 +96,7 @@ public class FoodController extends Controller {
     public Result updateFoodByName(String name) {
 
         if(null == name){
-            return badRequest("Id must be provided");
+            return badRequest("Name must be provided");
         }
         final JsonNode json = request().body().asJson();
         final Food newFood = Json.fromJson(json, Food.class);
@@ -127,8 +106,6 @@ public class FoodController extends Controller {
         final Food updatedFood = foodDao.update(newFood);
 
         final JsonNode result = Json.toJson(updatedFood);
-
-
 
         return ok(result);
     }

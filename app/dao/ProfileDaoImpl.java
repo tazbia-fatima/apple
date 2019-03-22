@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+
 public class ProfileDaoImpl implements ProfileDao {
 
     private final static Logger.ALogger LOGGER = Logger.of(ProfileDaoImpl.class);
@@ -54,20 +55,17 @@ public class ProfileDaoImpl implements ProfileDao {
 
     @Override
     public Profile update(Profile profile) {
+
         if(null == profile){
             throw new IllegalArgumentException("Details must be provided");
         }
 
-        if(null == profile.getId()){
-            throw new IllegalArgumentException("Id must be provided");
-        }
+        final Profile existingProfile = searchByUserName(profile.getUser().getName());
 
-        final Profile existingProfile = jpaApi.em().find(Profile.class, profile.getId());
         if(null == existingProfile) {
             return null;
         }
         existingProfile.setAge(profile.getAge());
-
         existingProfile.setHeight(profile.getHeight());
         existingProfile.setWeight(profile.getWeight());
         existingProfile.setGoalPlan(profile.getGoalPlan());

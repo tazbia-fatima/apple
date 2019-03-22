@@ -26,7 +26,7 @@ public class FoodIntakeDaoImpl implements FoodIntakeDao {
     public FoodIntake create(FoodIntake intake) {
 
         if (null == intake) {
-            throw new IllegalArgumentException("User must be provided");
+            throw new IllegalArgumentException("Intake must be provided");
         }
 
         jpaApi.em().persist(intake);

@@ -55,9 +55,9 @@ public class Profile {
     }
 
 
-    public String getUser() {
+    public User getUser() {
 
-        return user.getName();
+        return user;
     }
 
     public void setUser(User user) {

@@ -49,6 +49,8 @@ public class FoodIntakeController extends Controller {
         for (JsonNode node : json) {
             final FoodIntake intake = Json.fromJson(node, FoodIntake.class);
 
+            LOGGER.debug("food id {}", node.get("foodId"));
+
             final Integer foodId = node.get("foodId").asInt();
             final Optional<Food> optionalFood = foodDao.read(foodId);
             if(!optionalFood.isPresent()){
@@ -69,7 +71,6 @@ public class FoodIntakeController extends Controller {
 
         LOGGER.debug("Intakes {} ",intakes);
 
-
         final Collection<FoodIntake> newIntake = foodIntakeDao.createFoodIntake(intakes);
 
         final JsonNode result = Json.toJson(newIntake);
@@ -77,6 +78,12 @@ public class FoodIntakeController extends Controller {
         return ok(result);
 
     }
-    
+
+    @Transactional
+    @Authenticator
+    public  Result deleteFoodIntake() {
+
+        return ok();
+    }
 
 }
