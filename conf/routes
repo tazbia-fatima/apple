@@ -1,6 +1,12 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
+
+POST /images             controllers.ImagesController.uploadImage()
+GET /images/:id          controllers.ImagesController.downloadImage(id: String)
+DELETE /images/:id       controllers.ImagesController.deleteImage(id: String)
+
+
 #GET /HelloWorld                     controllers.HelloWorldController.HelloWorld()
 #GET /helloSanjana                   controllers.HelloWorldController.helloSanjana()
 #GET /hello/:name                    controllers.HelloWorldController.hello(name: String)
@@ -30,6 +36,8 @@ POST /foods                         controllers.FoodController.createFoods()
 POST /food                          controllers.FoodController.createFood()
 PUT /foods/:name                    controllers.FoodController.updateFoodByName(name : String)
 DELETE /foods/:Id                   controllers.FoodController.deleteFoodById(Id : Integer)
+
+GET /images                         controllers.ImagesController.downloadImage(Id : String)
 
 
 GET /users                          controllers.UserController.getAllUsers()

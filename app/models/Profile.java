@@ -3,6 +3,7 @@ package models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Profile {
@@ -26,6 +27,8 @@ public class Profile {
     @Basic
     @JsonProperty("age")
     private Integer age;
+
+
 
     @Basic
     @JsonProperty("height")
@@ -65,6 +68,7 @@ public class Profile {
         this.user = user;
     }
 
+
     public Integer getAge() {
 
         return age;
@@ -76,6 +80,7 @@ public class Profile {
     }
 
     public Integer getHeight() {
+
         return height;
     }
 
@@ -95,27 +100,33 @@ public class Profile {
     }
 
     public Gender getGender() {
+
         return gender;
     }
 
     public void setGender(Gender gender) {
+
         this.gender = gender;
     }
 
     public Integer getId() {
+
         return Id;
     }
 
     public void setId(Integer id) {
+
         Id = id;
     }
 
 
     public Float getGoalPlan() {
+
         return goalPlan;
     }
 
     public void setGoalPlan(Float goalPlan) {
+
         this.goalPlan = goalPlan;
     }
 

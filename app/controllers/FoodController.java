@@ -39,6 +39,14 @@ public class FoodController extends Controller {
             return badRequest("Title must be provided");
         }
 
+        LOGGER.debug("Food image url =" + food.getImageUrl());
+        LOGGER.error("This is an error");
+
+        if (null == food.getImageUrl()) {
+            return badRequest("Image must be provided");
+        }
+
+
         final Food newFood = foodDao.create(food);
 
         final JsonNode result = Json.toJson(newFood);
@@ -99,10 +107,11 @@ public class FoodController extends Controller {
             return badRequest("Name must be provided");
         }
         final JsonNode json = request().body().asJson();
+        if(null == json){
+            return badRequest("empty pointer");
+        }
         final Food newFood = Json.fromJson(json, Food.class);
-
         newFood.setName(name);
-
         final Food updatedFood = foodDao.update(newFood);
 
         final JsonNode result = Json.toJson(updatedFood);

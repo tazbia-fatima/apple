@@ -50,11 +50,16 @@ public class FoodDaoImpl implements FoodDao{
             throw new IllegalArgumentException("Food Name must be provided");
         }
 
-        final Food existingFood = jpaApi.em().find(Food.class, food.getName());
+        String name = food.getName();
+        //final Food existingFood = jpaApi.em().find(Food.class, food.getName());
+       TypedQuery<Food> query = jpaApi.em().createQuery("SELECT f FROM Food f where name =  '"+name+"'", Food.class);
+        Food existingFood = query.getSingleResult();
         if(null == existingFood) {
             return null;
         }
+        existingFood.setName(food.getName());
         existingFood.setCalories(food.getCalories());
+        existingFood.setImageUrl(food.getImageUrl());
 
         jpaApi.em().persist(existingFood);
 

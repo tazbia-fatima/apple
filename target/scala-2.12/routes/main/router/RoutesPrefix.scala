@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/Users/sanjana/Documents/Sanjana /play-java-starter-example/conf/routes
-// @DATE:Fri Jan 18 12:03:11 IST 2019
+// @SOURCE:/Users/tazbiafatima/Documents/Weigh-To-Go-Backend/conf/routes
+// @DATE:Fri Mar 29 11:47:01 IST 2019
 
 
 package router {

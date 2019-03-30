@@ -1,0 +1,9 @@
+[0m[[0m[0minfo[0m] [0m[0m/Users/tazbiafatima/Documents/Weigh-To-Go-Backend/app/models/Profile.java: /Users/tazbiafatima/Documents/Weigh-To-Go-Backend/app/models/Profile.java uses or overrides a deprecated API.[0m
+[0m[[0m[0minfo[0m] [0m[0m/Users/tazbiafatima/Documents/Weigh-To-Go-Backend/app/models/Profile.java: Recompile with -Xlint:deprecation for details.[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/tazbiafatima/Documents/Weigh-To-Go-Backend/app/dao/ProfileDaoImpl.java:68:1: method getAge in class models.Profile cannot be applied to given types;[0m
+[0m[[0m[31merror[0m] [0m[0m  required: java.util.Date[0m
+[0m[[0m[31merror[0m] [0m[0m  found: no arguments[0m
+[0m[[0m[31merror[0m] [0m[0m  reason: actual and formal argument lists differ in length[0m
+[0m[[0m[31merror[0m] [0m[0m        existingProfile.setAge(profile.getAge());[0m
+[0m[[0m[0minfo[0m] [0m[0m/Users/tazbiafatima/Documents/Weigh-To-Go-Backend/app/models/Profile.java: /Users/tazbiafatima/Documents/Weigh-To-Go-Backend/app/models/Profile.java uses or overrides a deprecated API.[0m
+[0m[[0m[0minfo[0m] [0m[0m/Users/tazbiafatima/Documents/Weigh-To-Go-Backend/app/models/Profile.java: Recompile with -Xlint:deprecation for details.[0m

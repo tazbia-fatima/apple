@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/Users/sanjana/Documents/Sanjana /play-java-starter-example/conf/routes
-// @DATE:Fri Jan 18 12:03:11 IST 2019
+// @SOURCE:/Users/tazbiafatima/Documents/Weigh-To-Go-Backend/conf/routes
+// @DATE:Fri Mar 29 11:47:01 IST 2019
 
 import play.api.mvc.Call
 
@@ -8,17 +8,17 @@ import play.api.mvc.Call
 import _root_.controllers.Assets.Asset
 import _root_.play.libs.F
 
-// @LINE:4
+// @LINE:5
 package controllers {
 
-  // @LINE:29
+  // @LINE:58
   class ReverseAssets(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:29
+    // @LINE:58
     def versioned(file:Asset): Call = {
       implicit lazy val _rrc = new play.core.routing.ReverseRouteContext(Map(("path", "/public"))); _rrc
       Call("GET", _prefix + { _defaultPrefix } + "assets/" + implicitly[play.api.mvc.PathBindable[Asset]].unbind("file", file))
@@ -26,29 +26,86 @@ package controllers {
   
   }
 
-  // @LINE:18
+  // @LINE:33
   class ReverseFoodController(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:18
-    def getFood(): Call = {
+    // @LINE:34
+    def getFoodById(Id:Integer): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "foods/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[Integer]].unbind("Id", Id)))
+    }
+  
+    // @LINE:36
+    def createFood(): Call = {
+      
+      Call("POST", _prefix + { _defaultPrefix } + "food")
+    }
+  
+    // @LINE:35
+    def createFoods(): Call = {
+      
+      Call("POST", _prefix + { _defaultPrefix } + "foods")
+    }
+  
+    // @LINE:37
+    def updateFoodByName(name:String): Call = {
+      
+      Call("PUT", _prefix + { _defaultPrefix } + "foods/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("name", name)))
+    }
+  
+    // @LINE:38
+    def deleteFoodById(Id:Integer): Call = {
+      
+      Call("DELETE", _prefix + { _defaultPrefix } + "foods/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[Integer]].unbind("Id", Id)))
+    }
+  
+    // @LINE:33
+    def getAllFood(): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "foods")
     }
   
   }
 
-  // @LINE:24
+  // @LINE:28
+  class ReverseProfileController(_prefix: => String) {
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:30
+    def getCurrentProfile(): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "profile/me")
+    }
+  
+    // @LINE:28
+    def createProfile(): Call = {
+      
+      Call("POST", _prefix + { _defaultPrefix } + "profile")
+    }
+  
+    // @LINE:29
+    def updateProfile(): Call = {
+      
+      Call("PUT", _prefix + { _defaultPrefix } + "profile/me")
+    }
+  
+  }
+
+  // @LINE:53
   class ReverseCountController(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:24
+    // @LINE:53
     def count(): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "count")
@@ -56,86 +113,59 @@ package controllers {
   
   }
 
-  // @LINE:4
-  class ReverseHelloWorldController(_prefix: => String) {
+  // @LINE:43
+  class ReverseUserController(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:7
-    def hellos(name:String, count:Integer = 17): Call = {
+    // @LINE:44
+    def getCurrentUser(): Call = {
       
-      Call("GET", _prefix + { _defaultPrefix } + "hellos/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("name", name)) + play.core.routing.queryString(List(if(count == 17) None else Some(implicitly[play.api.mvc.QueryStringBindable[Integer]].unbind("count", count)))))
+      Call("GET", _prefix + { _defaultPrefix } + "users/me")
     }
   
-    // @LINE:4
-    def HelloWorld(): Call = {
+    // @LINE:48
+    def deleteUserByName(name:String): Call = {
       
-      Call("GET", _prefix + { _defaultPrefix } + "HelloWorld")
+      Call("DELETE", _prefix + { _defaultPrefix } + "users/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("name", name)))
     }
   
-    // @LINE:5
-    def helloSanjana(): Call = {
+    // @LINE:46
+    def signInUser(): Call = {
       
-      Call("GET", _prefix + { _defaultPrefix } + "helloSanjana")
+      Call("PUT", _prefix + { _defaultPrefix } + "users/signin")
     }
   
-    // @LINE:6
-    def hello(name:String): Call = {
+    // @LINE:45
+    def registerUser(): Call = {
       
-      Call("GET", _prefix + { _defaultPrefix } + "hello/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("name", name)))
+      Call("POST", _prefix + { _defaultPrefix } + "users")
+    }
+  
+    // @LINE:47
+    def signOutUser(): Call = {
+      
+      Call("PUT", _prefix + { _defaultPrefix } + "users/signout")
+    }
+  
+    // @LINE:43
+    def getAllUsers(): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "users")
     }
   
   }
 
-  // @LINE:11
-  class ReverseBooksController(_prefix: => String) {
-    def _defaultPrefix: String = {
-      if (_prefix.endsWith("/")) "" else "/"
-    }
-
-  
-    // @LINE:14
-    def deleteBookById(Id:Integer): Call = {
-      
-      Call("DELETE", _prefix + { _defaultPrefix } + "books/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[Integer]].unbind("Id", Id)))
-    }
-  
-    // @LINE:12
-    def getBookById(Id:Integer): Call = {
-      
-      Call("GET", _prefix + { _defaultPrefix } + "books/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[Integer]].unbind("Id", Id)))
-    }
-  
-    // @LINE:15
-    def getAllBooks(): Call = {
-      
-      Call("GET", _prefix + { _defaultPrefix } + "books")
-    }
-  
-    // @LINE:13
-    def updateBookById(Id:Integer): Call = {
-      
-      Call("PUT", _prefix + { _defaultPrefix } + "books/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[Integer]].unbind("Id", Id)))
-    }
-  
-    // @LINE:11
-    def createBook(): Call = {
-      
-      Call("POST", _prefix + { _defaultPrefix } + "books")
-    }
-  
-  }
-
-  // @LINE:22
+  // @LINE:51
   class ReverseHomeController(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:22
+    // @LINE:51
     def index(): Call = {
       
       Call("GET", _prefix)
@@ -143,17 +173,67 @@ package controllers {
   
   }
 
-  // @LINE:26
+  // @LINE:55
   class ReverseAsyncController(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:26
+    // @LINE:55
     def message(): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "message")
+    }
+  
+  }
+
+  // @LINE:5
+  class ReverseImagesController(_prefix: => String) {
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:6
+    def downloadImage(id:String): Call = {
+    
+      (id: @unchecked) match {
+      
+        // @LINE:6
+        case (id)  =>
+          
+          Call("GET", _prefix + { _defaultPrefix } + "images/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)))
+      
+      }
+    
+    }
+  
+    // @LINE:7
+    def deleteImage(id:String): Call = {
+      
+      Call("DELETE", _prefix + { _defaultPrefix } + "images/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)))
+    }
+  
+    // @LINE:5
+    def uploadImage(): Call = {
+      
+      Call("POST", _prefix + { _defaultPrefix } + "images")
+    }
+  
+  }
+
+  // @LINE:25
+  class ReverseFoodIntakeController(_prefix: => String) {
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:25
+    def createFoodIntake(): Call = {
+      
+      Call("POST", _prefix + { _defaultPrefix } + "foodIntake")
     }
   
   }
